@@ -43,10 +43,7 @@ except sr.RequestError as e:
     print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
 try:
-    # for testing purposes, we're just using the default API key
-    # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-    # instead of `r.recognize_google(audio)`
-    print("Google Speech Recognition thinks you said in fr " + r.recognize_google(audio_fr))
+    print("Google Speech Recognition thinks you said in fr " + r.recognize_google(audio_fr, language='fr-FR'))
 except sr.UnknownValueError:
     print("Google Speech Recognition could not understand audio")
 except sr.RequestError as e:
@@ -55,6 +52,7 @@ except sr.RequestError as e:
 # write audio to a WAV file
 with open("microphone-results.wav", "wb") as f:
     f.write(audio.get_wav_data())
+
 try:
     text = r.recognize_google(audio)
     print("You said: {}".format(text))
